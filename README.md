@@ -20,6 +20,7 @@ But this turned out to be pretty generic, feel free to use it for your own work.
 * Free unrestricted API, requires no key or credit card
 * Unicode support
 * Works for all Python versions (2 & 3)
+* SafeSearch support
 
 
 ### Installation
@@ -36,12 +37,14 @@ pip install gsearch
 ```sh
 > from gsearch.googlesearch import search
 
-> results = search('Full Stack Developer')  # returns 10 or less results
+> results = search('Full Stack Developer')  # returns 10 or less results with Safe Search OFF
 [ ('Name', 'Link'),
 	('Name', 'Link'),
 	... ]
 
-> results = search('Avi Aryan', num_results=20)  # returns 20 or less results
+> results = search('Avi Aryan', num_results=20)  # returns 20 or less results with Safe Search OFF
+
+> results = search('Rimac', safe_search=True)  # returns 10 or less results with Safe Search ON
 ```
 
 You can also use it as a CLI tool.

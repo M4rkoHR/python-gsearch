@@ -33,7 +33,7 @@ except ImportError:
 isPython2 = sys.version.startswith('2')
 
 
-def download(query, num_results):
+def download(query, num_results, safe_search=False):
 	"""
 	downloads HTML after google search
 	"""
@@ -41,7 +41,7 @@ def download(query, num_results):
 	name = quote(query)
 
 	name  = name.replace(' ','+')
-	url = 'http://www.google.com/search?q=' + name
+	url = 'http://www.google.com/search?q=' + name + ("&safe=active" if safe_search else "&safe=images")
 	if num_results != 10:
 		url += '&num=' + str(num_results)  # adding this param might hint Google towards a bot
 	req = request.Request(url, headers={
@@ -98,12 +98,12 @@ def convert_unicode(text):
 	return s
 
 
-def search(query, num_results=10):
+def search(query, num_results=10, safe_search=False):
 	"""
 	searches google for :query and returns a list of tuples
 	of the format (name, url)
 	"""
-	data = download(query, num_results)
+	data = download(query, num_results, safe_search)
 	results = re.findall(r'\<h3.*?\>.*?\<\/h3\>', data, re.IGNORECASE)
 	if results is None or len(results) == 0:
 		print('No results where found. Did the rate limit exceed?')
